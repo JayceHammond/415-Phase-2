@@ -182,9 +182,29 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
           tags: req.body.tags,
         },
       };
-      let result = await ticket.updateOne(query, updateTicket);
+      await ticket.updateOne(query, updateTicket);
+      let result = await ticket.findOne(query);
       console.log(ticket);
       res.send(result).status(200);
+    } finally {
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+});
+
+app.delete("/rest/ticket/delete/:id", function (req, res) {
+  const client = new MongoClient(uri);
+
+  async function run() {
+    try {
+      const database = client.db("CMPS415");
+      const ticket = database.collection("Ticket");
+      const searchId = req.params.id;
+      const query = { _id: parseInt(searchId) };
+
+      await ticket.deleteOne(query);
+      res.send("Deleted").status(200);
     } finally {
       await client.close();
     }
