@@ -156,7 +156,7 @@ app.post("/rest/ticket/", function (req, res) {
   run().catch(console.dir);
 });
 
-app.patch("/rest/ticket/update/:id", function (req, res) {
+app.patch("/rest/ticket/patch/:id", function (req, res) {
   const client = new MongoClient(uri);
 
   async function run() {
@@ -167,18 +167,20 @@ app.patch("/rest/ticket/update/:id", function (req, res) {
       const query = { _id: parseInt(searchId) };
 
       var updateTicket = {
-        createdAt: req.body.createdAt,
-        updatedAt: req.body.updatedAt,
-        type: req.body.type,
-        subject: req.body.subject,
-        Description: req.body.Description,
-        priority: req.body.priority,
-        status: req.body.status,
-        recipient: req.body.recipient,
-        submitter: req.body.submitter,
-        assignee_ID: req.body.assignee_ID,
-        follower_IDs: req.body.follower_IDs,
-        tags: req.body.tags,
+        $push: {
+          createdAt: req.body.createdAt,
+          updatedAt: req.body.updatedAt,
+          type: req.body.type,
+          subject: req.body.subject,
+          Description: req.body.Description,
+          priority: req.body.priority,
+          status: req.body.status,
+          recipient: req.body.recipient,
+          submitter: req.body.submitter,
+          assignee_ID: req.body.assignee_ID,
+          follower_IDs: req.body.follower_IDs,
+          tags: req.body.tags,
+        },
       };
       if (searchId < 1) {
         return res.send("Invalid ID");
