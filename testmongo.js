@@ -167,18 +167,7 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
       const query = { _id: parseInt(searchId) };
 
       var updateTicket = {
-        createdAt: req.body.createdAt,
-        updatedAt: req.body.updatedAt,
-        type: req.body.type,
-        subject: req.body.subject,
-        Description: req.body.Description,
-        priority: req.body.priority,
-        status: req.body.status,
-        recipient: req.body.recipient,
-        submitter: req.body.submitter,
-        assignee_ID: req.body.assignee_ID,
-        follower_IDs: req.body.follower_IDs,
-        tags: req.body.tags,
+        body: req.body,
       };
       let result = await ticket.updateOne(query, updateTicket);
       console.log(ticket);
