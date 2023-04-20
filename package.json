@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Jds 415 Project",
   "main": "testmongo.js",
-  "repository": "https://github.com/JayceHammond/MongoTest",
+  "repository": "https://github.com/JayceHammond/415-Phase-2",
   "author": "Jd",
   "license": "MIT",
   "private": false,

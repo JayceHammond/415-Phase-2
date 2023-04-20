@@ -182,13 +182,6 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
           tags: req.body.tags,
         },
       };
-      if (searchId < 1) {
-        return res.send("Invalid ID");
-      }
-
-      if (ticket == null) {
-        return res.send("Ticket not found");
-      }
       let result = ticket.updateOne(query, updateTicket);
       console.log(ticket);
       res.send(result).status(200);
