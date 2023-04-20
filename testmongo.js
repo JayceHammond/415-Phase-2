@@ -167,7 +167,7 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
       const query = { _id: parseInt(searchId) };
 
       var updateTicket = {
-        $: {
+        $set: {
           createdAt: req.body.createdAt,
           updatedAt: req.body.updatedAt,
           type: req.body.type,
