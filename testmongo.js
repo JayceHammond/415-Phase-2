@@ -182,7 +182,7 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
           tags: req.body.tags,
         },
       };
-      let result = ticket.updateOne(query, updateTicket);
+      let result = await ticket.updateOne(query, updateTicket);
       console.log(ticket);
       res.send(result).status(200);
     } finally {
