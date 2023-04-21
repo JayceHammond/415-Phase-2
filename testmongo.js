@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
   const myquery = req.query;
   res.send(`<form method = "POST" action ="/">
     <label for="_id"> Id: </label>
-    <input type="date" name="_id" placeholder="Id"> <br>
+    <input type="number" name="_id" placeholder="Id"> <br>
 
     <label for="createdAt"> Date Created: </label>
     <input type="date" name="createdAt" placeholder="Date Created"> <br>
