@@ -21,11 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
   const myquery = req.query;
   res.send(`<form method = "POST" action ="/">
+    <label for="_id"> Id: </label>
+    <input type="date" name="_id" placeholder="Id"> <br>
+
     <label for="createdAt"> Date Created: </label>
-    <input type="text" name="createdAt" placeholder="Date Created"> <br>
+    <input type="date" name="createdAt" placeholder="Date Created"> <br>
 
     <label for="updatedAt"> Date Updated: </label>
-    <input type = "text" name="updatedAt" placeholder="Date Updated"> <br>
+    <input type = "date" name="updatedAt" placeholder="Date Updated"> <br>
 
     <label for="type"> Type: </label>
     <input type = "text" name="type" placeholder="Type"> <br>
@@ -43,13 +46,20 @@ app.get("/", function (req, res) {
     <input type = "text" name="status" placeholder="Status"> <br>
 
     <label for="recipient"> Recipient: </label>
-    <input type = "text" name="recipient" placeholder="Recipient"> <br>
+    <input type = "email" name="recipient" placeholder="Recipient"> <br>
 
     <label for="submitter"> Submitter: </label>
-    <input type = "text" name="submitter" placeholder="Submitter"> <br>
+    <input type = "email" name="submitter" placeholder="Submitter"> <br>
 
     <label for="assignee_ID"> Assignee Id: </label>
     <input type = "number" name="assignee_ID" placeholder="Assignee Id"> <br>
+
+    <label for="follower_IDs"> Follower Ids: </label>
+    <input type = "number" name="follower_IDs[]" placeholder="Follower Ids"> <br>
+
+    <label for="tags"> Tags: </label>
+    <input type = "text" name="tags[]" placeholder="Tags"> <br>
+    
     
     <input type = "submit">
   </form>`);
