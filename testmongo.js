@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get("/", function (req, res) {
   const myquery = req.query;
-  res.send(`<form method = "POST" action ="/">
+  res.send(`<form method = "POST" action ="/rest/newticket">
     <label for="_id"> Id: </label>
     <input type="number" name="_id" placeholder="Id"> <br>
 
@@ -119,7 +119,7 @@ app.get("/rest/list", function (req, res) {
   run().catch(console.dir);
 });
 //Post Ticket
-app.post("/rest/ticket/", function (req, res) {
+app.post("/rest/newticket/", function (req, res) {
   console.log("Posting Ticket: ");
   const client = new MongoClient(uri);
 
@@ -131,20 +131,7 @@ app.post("/rest/ticket/", function (req, res) {
 
 
 
-      var newTicket = {
-        createdAt: req.body.createdAt,
-        updatedAt: req.body.updatedAt,
-        type: req.body.type,
-        subject: req.body.subject,
-        Description: req.body.Description,
-        priority: req.body.priority,
-        status: req.body.status,
-        recipient: req.body.recipient,
-        submitter: req.body.submitter,
-        assignee_ID: req.body.assignee_ID,
-        follower_IDs: req.body.follower_IDs,
-        tags: req.body.tags,
-      };
+      var newTicket = req.body;
 
 
 
