@@ -149,56 +149,6 @@ app.post("/rest/newticket/", function (req, res) {
   run().catch(console.dir);
 });
 
-app.get("/rest/ticket/patch/:id", function (req, res){
-  const query = { _id: parseInt(searchId) };
-
-  let oldTicket = ticket.findOne(query);
-
-  res.send(`<form method = "PATCH" action ="/rest/ticket/patch/:id">
-  <label for="_id"> Id: </label>
-  <input type="number" name="_id" value= oldTicket._id placeholder="Id"> <br>
-
-  <label for="createdAt"> Date Created: </label>
-  <input type="date" name="createdAt" placeholder="Date Created"> <br>
-
-  <label for="updatedAt"> Date Updated: </label>
-  <input type = "date" name="updatedAt" placeholder="Date Updated"> <br>
-
-  <label for="type"> Type: </label>
-  <input type = "text" name="type" placeholder="Type"> <br>
-
-  <label for="subject"> Subject: </label>
-  <input type = "text" name="subject" placeholder="Subject"> <br>
-
-  <label for="description"> Description: </label>
-  <input type = "text" name="Description" placeholder="Description"> <br>
-
-  <label for="priority"> Priority: </label>
-  <input type = "text" name="priority" placeholder="Priority"> <br>
-
-  <label for="status"> Status: </label>
-  <input type = "text" name="status" placeholder="Status"> <br>
-
-  <label for="recipient"> Recipient: </label>
-  <input type = "email" name="recipient" placeholder="Recipient"> <br>
-
-  <label for="submitter"> Submitter: </label>
-  <input type = "email" name="submitter" placeholder="Submitter"> <br>
-
-  <label for="assignee_ID"> Assignee Id: </label>
-  <input type = "number" name="assignee_ID" placeholder="Assignee Id"> <br>
-
-  <label for="follower_IDs"> Follower Ids: </label>
-  <input type = "number" name="follower_IDs[]" placeholder="Follower Ids"> <br>
-
-  <label for="tags"> Tags: </label>
-  <input type = "text" name="tags[]" placeholder="Tags"> <br>
-  
-  
-  <input type = "submit">
-</form>`);
-})
-
 app.patch("/rest/ticket/patch/:id", function (req, res) {
   const client = new MongoClient(uri);
 
@@ -208,11 +158,6 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
       const ticket = database.collection("Ticket");
       const searchId = req.params.id;
       const query = { _id: parseInt(searchId) };
-
-      let oldTicket = await ticket.findOne(query);
-
-
-
 
       var updateTicket = {
         $set: {
