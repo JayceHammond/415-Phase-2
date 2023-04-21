@@ -85,8 +85,8 @@ app.get("/rest/ticket/:id", function (req, res) {
       if (searchId < 1) {
         return res.send("Invalid ID");
       }
-      const query = { _id: parseInt(searchId) };
-      const ticket = await tickets.findOne(query);
+      const queryInt = { _id: parseInt(searchId) };
+      const ticket = await tickets.findOne(queryInt);
       if (ticket == null) {
         return res.send("Ticket not found");
       }
@@ -134,6 +134,7 @@ app.post("/rest/newticket/", function (req, res) {
       }
 
       var newTicket = req.body;
+      newTicket._id = parseInt(newTicket._id);
 
       //Can't input a time stamp but the Phase I doc requires it be a postable field. Therefore check if the time stamp is at least an integer
 
