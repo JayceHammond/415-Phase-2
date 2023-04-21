@@ -193,6 +193,7 @@ app.patch("/rest/ticket/patch/:id", function (req, res) {
   run().catch(console.dir);
 });
 
+//Update Endpoint
 app.delete("/rest/ticket/delete/:id", function (req, res) {
   const client = new MongoClient(uri);
 
@@ -201,7 +202,14 @@ app.delete("/rest/ticket/delete/:id", function (req, res) {
       const database = client.db("CMPS415");
       const ticket = database.collection("Ticket");
       const searchId = req.params.id;
+      if (searchId < 0) {
+        res.send("Id must be greater than 0");
+      }
       const query = { _id: parseInt(searchId) };
+
+      if ((await ticket.findOne(query)) == null) {
+        res.send("Ticket not found");
+      }
 
       await ticket.deleteOne(query);
       res.send("Deleted").status(200);
