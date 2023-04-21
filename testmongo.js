@@ -87,6 +87,9 @@ app.post("/rest/ticket/", function (req, res) {
       const database = client.db("CMPS415");
       const ticket = database.collection("Ticket");
       //let newId = await ticket.find().sort( { _id : -1 } ).limit(1).toArray();
+
+
+
       var newTicket = {
         createdAt: req.body.createdAt,
         updatedAt: req.body.updatedAt,
@@ -101,6 +104,12 @@ app.post("/rest/ticket/", function (req, res) {
         follower_IDs: req.body.follower_IDs,
         tags: req.body.tags,
       };
+
+      res.render("ticket_form",{
+        title: "Create Ticket",
+        newTicket,
+        errors: errors.toArray(),
+      });
 
       if (
         newTicket.createdAt == null ||
