@@ -78,7 +78,7 @@ app.get("/rest/list", function (req, res) {
   run().catch(console.dir);
 });
 //Post Ticket
-app.post("/rest/ticket/", function (req, res) {
+app.post("/rest/newticket/", function (req, res) {
   console.log("Posting Ticket: ");
   const client = new MongoClient(uri);
 
