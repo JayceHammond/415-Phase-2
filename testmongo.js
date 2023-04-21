@@ -21,7 +21,36 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
   const myquery = req.query;
   res.send(`<form method = "POST" action ="/">
-    <input type="text" name="createdAt" placeholder="Date Created">
+    <label for="createdAt"> Date Created: </label>
+    <input type="text" name="createdAt" placeholder="Date Created"> <br>
+
+    <label for="updatedAt"> Date Updated: </label>
+    <input type = "text" name="updatedAt" placeholder="Date Updated"> <br>
+
+    <label for="type"> Type: </label>
+    <input type = "text" name="type" placeholder="Type"> <br>
+
+    <label for="subject"> Subject: </label>
+    <input type = "text" name="subject" placeholder="Subject"> <br>
+
+    <label for="description"> Description: </label>
+    <input type = "text" name="Description" placeholder="Description"> <br>
+
+    <label for="priority"> Priority: </label>
+    <input type = "text" name="priority" placeholder="Priority"> <br>
+
+    <label for="status"> Status: </label>
+    <input type = "text" name="status" placeholder="Status"> <br>
+
+    <label for="recipient"> Recipient: </label>
+    <input type = "text" name="recipient" placeholder="Recipient"> <br>
+
+    <label for="submitter"> Submitter: </label>
+    <input type = "text" name="submitter" placeholder="Submitter"> <br>
+
+    <label for="assignee_ID"> Assignee Id: </label>
+    <input type = "number" name="assignee_ID" placeholder="Assignee Id"> <br>
+    
     <input type = "submit">
   </form>`);
 });
