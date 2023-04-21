@@ -20,8 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get("/", function (req, res) {
   const myquery = req.query;
-  var outstring = "Starting... ";
-  res.send(outstring);
+  res.send(`<form method = "POST" action ="/">
+    <input type = "text" name = "createdAt" placeholder = "Date Created>
+    <input type = "submit"
+  </form>`);
 });
 
 app.get("/say/:name", function (req, res) {
@@ -78,7 +80,7 @@ app.get("/rest/list", function (req, res) {
   run().catch(console.dir);
 });
 //Post Ticket
-app.post("/rest/newticket/", function (req, res) {
+app.post("/rest/ticket/", function (req, res) {
   console.log("Posting Ticket: ");
   const client = new MongoClient(uri);
 
@@ -105,11 +107,7 @@ app.post("/rest/newticket/", function (req, res) {
         tags: req.body.tags,
       };
 
-      res.render("ticket_form",{
-        title: "Create Ticket",
-        newTicket,
-        errors: errors.toArray(),
-      });
+
 
       if (
         newTicket.createdAt == null ||
