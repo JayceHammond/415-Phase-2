@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
   const myquery = req.query;
   res.send(`<form method = "POST" action ="/">
-    <input type = "text" name = "createdAt" placeholder = "Date Created>
-    <input type = "submit"
+    <input type="text" name="createdAt" placeholder="Date Created">
+    <input type = "submit">
   </form>`);
 });
 
