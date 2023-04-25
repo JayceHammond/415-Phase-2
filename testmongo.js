@@ -20,8 +20,49 @@ app.use(express.urlencoded({ extended: true }));
 // Default route:
 app.get("/", function (req, res) {
   const myquery = req.query;
-  var outstring = "Starting... ";
-  res.send(outstring);
+  res.send(`<form method = "POST" action ="/rest/newticket">
+    <label for="_id"> Id: </label>
+    <input type="number" name="_id" placeholder="Id"> <br>
+
+    <label for="createdAt"> Date Created: </label>
+    <input type="date" name="createdAt" placeholder="Date Created"> <br>
+
+    <label for="updatedAt"> Date Updated: </label>
+    <input type = "date" name="updatedAt" placeholder="Date Updated"> <br>
+
+    <label for="type"> Type: </label>
+    <input type = "text" name="type" placeholder="Type"> <br>
+
+    <label for="subject"> Subject: </label>
+    <input type = "text" name="subject" placeholder="Subject"> <br>
+
+    <label for="description"> Description: </label>
+    <input type = "text" name="Description" placeholder="Description"> <br>
+
+    <label for="priority"> Priority: </label>
+    <input type = "text" name="priority" placeholder="Priority"> <br>
+
+    <label for="status"> Status: </label>
+    <input type = "text" name="status" placeholder="Status"> <br>
+
+    <label for="recipient"> Recipient: </label>
+    <input type = "email" name="recipient" placeholder="Recipient"> <br>
+
+    <label for="submitter"> Submitter: </label>
+    <input type = "email" name="submitter" placeholder="Submitter"> <br>
+
+    <label for="assignee_ID"> Assignee Id: </label>
+    <input type = "number" name="assignee_ID" placeholder="Assignee Id"> <br>
+
+    <label for="follower_IDs"> Follower Ids: </label>
+    <input type = "number" name="follower_IDs[]" placeholder="Follower Ids"> <br>
+
+    <label for="tags"> Tags: </label>
+    <input type = "text" name="tags[]" placeholder="Tags"> <br>
+    
+    
+    <input type = "submit">
+  </form>`);
 });
 
 app.get("/say/:name", function (req, res) {
@@ -44,8 +85,8 @@ app.get("/rest/ticket/:id", function (req, res) {
       if (searchId < 1) {
         return res.send("Invalid ID");
       }
-      const query = { _id: parseInt(searchId) };
-      const ticket = await tickets.findOne(query);
+      const queryInt = { _id: parseInt(searchId) };
+      const ticket = await tickets.findOne(queryInt);
       if (ticket == null) {
         return res.send("Ticket not found");
       }
@@ -78,7 +119,7 @@ app.get("/rest/list", function (req, res) {
   run().catch(console.dir);
 });
 //Post Ticket
-app.post("/rest/ticket/", function (req, res) {
+app.post("/rest/newticket/", function (req, res) {
   console.log("Posting Ticket: ");
   const client = new MongoClient(uri);
 
@@ -87,64 +128,17 @@ app.post("/rest/ticket/", function (req, res) {
       const database = client.db("CMPS415");
       const ticket = database.collection("Ticket");
       //let newId = await ticket.find().sort( { _id : -1 } ).limit(1).toArray();
-      var newTicket = {
-        createdAt: req.body.createdAt,
-        updatedAt: req.body.updatedAt,
-        type: req.body.type,
-        subject: req.body.subject,
-        Description: req.body.Description,
-        priority: req.body.priority,
-        status: req.body.status,
-        recipient: req.body.recipient,
-        submitter: req.body.submitter,
-        assignee_ID: req.body.assignee_ID,
-        follower_IDs: req.body.follower_IDs,
-        tags: req.body.tags,
-      };
 
-      if (
-        newTicket.createdAt == null ||
-        newTicket.updatedAt == null ||
-        newTicket.type == null ||
-        newTicket.subject == null ||
-        newTicket.Description == null ||
-        newTicket.priority == null ||
-        newTicket.status == null ||
-        newTicket.recipient == null ||
-        newTicket.submitter == null ||
-        newTicket.assignee_ID == null ||
-        newTicket.follower_IDs == null ||
-        newTicket.tags == null
-      ) {
+      if (req.body == null) {
         return res.send("Content cannot be null");
       }
 
-      //Can't input a time stamp but the Phase I doc requires it be a postable field. Therefore check if the time stamp is at least an integer
-      if (
-        typeof newTicket.createdAt != "number" ||
-        typeof newTicket.updatedAt != "number" ||
-        typeof newTicket.assignee_ID != "number" ||
-        typeof newTicket.follower_IDs != "object"
-      ) {
-        return res.send(
-          "Id, create time, and update time must be integers. Follower Ids must be an array."
-        );
-      }
+      var newTicket = req.body;
+      newTicket._id = parseInt(newTicket._id);
 
-      if (
-        typeof newTicket.type != "string" ||
-        typeof newTicket.subject != "string" ||
-        typeof newTicket.Description != "string" ||
-        typeof newTicket.priority != "string" ||
-        typeof newTicket.status != "string" ||
-        typeof newTicket.recipient != "string" ||
-        typeof newTicket.submitter != "string" ||
-        typeof newTicket.tags != "object"
-      ) {
-        return res.send(
-          "Type, subject, description, priority level, status, recipient, and submitter must be strings. Tags must be an array."
-        );
-      }
+      //Can't input a time stamp but the Phase I doc requires it be a postable field. Therefore check if the time stamp is at least an integer
+
+
 
       await ticket.insertOne(newTicket);
       let result = newTicket;
